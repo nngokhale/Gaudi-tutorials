@@ -211,7 +211,20 @@ docker run -it --rm \
     vllm-v0.7.2-gaudi-ub24:1.21.1-16
 ```
 2.2) Example for bringing up a vLLM server with a custom max model length, tensor parallel (TP) size and **DTYPE=fp8**.
+2.2.1) This below command return the latest version of Repository Gaudi-tutorials. 
+
 ```bash
+bash get_version.sh
+```
+```bash
+
+2.2.2) Run below command to up the server
+
+> Note:  
+> When runing the new LLM model for first time, measurement file gets created and and get stored in measurement folder as used **-v ./measurement:/root/scripts/measurement** docker volume.
+>   From subsequent runs on the models, it will check whether measurement files are available or not. If available it will skip creation of files else it create one  and store in the folder
+>
+
 docker run -it --rm \
     -e http_proxy=$http_proxy -e https_proxy=$https_proxy -e no_proxy=$no_proxy \
     -e HF_HOME=/mnt/hf_cache \
@@ -226,6 +239,7 @@ docker run -it --rm \
     -e TENSOR_PARALLEL_SIZE=8 \
     -e DTYPE=fp8 \
     -e MAX_MODEL_LEN=8192 \
+    -v ./measurement:/root/scripts/measurement \
     --name vllm-server \
     vllm-v0.7.2-gaudi-ub24:1.21.1-16
 ```

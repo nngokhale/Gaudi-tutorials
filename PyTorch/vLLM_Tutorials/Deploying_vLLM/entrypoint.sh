@@ -12,10 +12,13 @@ LOG_FILE=$LOG_DIR/$LOG_FILE
 ## PRE-CHECKS
 HF_HOME="${HF_HOME:-/root/.cache/huggingface}"
 DTYPE="${DTYPE:-bfloat16}"
-export HF_HOME DTYPE
+export HF_HOME DTYPE 
+
+
 
 if [ "$DTYPE" = "fp8" ]; then
 	INPUT_SH=template_vllm_server_fp8.sh
+
 else
 	INPUT_SH=template_vllm_server_bf16.sh
 fi
